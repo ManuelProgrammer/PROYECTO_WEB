@@ -1,0 +1,256 @@
+/* Estilos header */
+.header-bg {
+  background-color: #fff;
+  border: #004d00;
+}
+
+.header-bg .form-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 100%; /* Ajusta el tamaño del buscador para que sea responsive */
+  width: 380px; /* Ancho máximo del buscador */
+  height: 38px;
+  border-radius: 4px;
+}
+/*define la sombra del nav y eleva la posición hacia arriba*/
+.navbar-shadow {
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 1);
+}
+/*define la posición del banner mas baja que el nav para que la sombra sobre salga*/
+.carousel-inner {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+  .header-bg .container {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .header-bg .form-container {
+      justify-content: flex-start;
+      width: 100%;
+  }
+
+  .search-input {
+      max-width: 100%;
+      margin-bottom: 10px; /* Espacio entre el input y el botón de buscar */
+  }
+
+  .header-bg .btn-outline-success {
+      width: 100%;
+      justify-content: center;
+      margin-bottom: 10px; /* Espacio entre el botón y el siguiente elemento */
+  }
+}
+
+@media (max-width: 576px) {
+  .header-bg .d-flex.align-items-center.mb-2.mb-md-0 {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .header-bg .btn-outline-success {
+      width: auto;
+  }
+}
+
+
+/*color de la pagina*/
+
+.main-bg {
+  background-color: #008000;
+}
+.footer-bg {
+  background-color: #004d00;
+}
+.highlight {
+  color: #008000;
+}
+.header-text {
+  color: #495b2a;
+}
+.highlight-bg {
+  background-color: #008000;
+}
+.nav-link {
+  font-size: 1.25rem; /* Aumenta el tamaño del texto */
+}
+.highlight {
+  text-align: center;
+}
+input {
+  /* Ajusta el tamaño del buscador */
+  height: 38px;
+  border-radius: 4px;
+}
+i {
+  font-size: 23px;
+}
+
+/* style del footer */
+
+.logo-footer {
+  height: auto;
+  width: 100%;
+  max-width: 200px; /* Ajusta el ancho máximo del logo */
+}
+.cont-footer {
+  margin-bottom: 20px; /* Espacio entre las columnas del footer */
+}
+
+@media (max-width: 576px) {
+  #footer-row{
+    margin-left: 10px
+  }
+}
+
+/* styles cards*/
+
+.card {
+  max-width: 400px; /* Ajusta el tamaño máximo de la tarjeta */
+  margin: auto; /* Centra las tarjetas horizontalmente */
+}
+
+.card-img-top {
+  height: 300px; /* Ajusta la altura de la imagen */
+  object-fit: cover; /* Ajusta la imagen para que cubra el área sin distorsionarse */
+}
+
+/* Media queries para ajustar el tamaño de las tarjetas en diferentes pantallas */
+@media (max-width: 900px) {
+  .card {
+      max-width: 100%; /* Tamaño de tarjeta en pantallas medianas */
+  }
+  .card-img-top {
+    height: 50%; /* Deja que la imagen ajuste su altura automáticamente en pantallas pequeñas */
+}
+}
+
+@media (max-width: 576px) {
+  .card {
+      max-width: 100%; /* Tamaño de tarjeta en pantallas pequeñas */
+  }
+
+  .card-img-top {
+      height: auto; /* Deja que la imagen ajuste su altura automáticamente en pantallas pequeñas */
+  }
+}
+
+.custom-ml-auto {
+  margin-left: auto;
+}
+
+/*styles de el contenido de la pagina nosotros*/
+
+p{
+  text-align: justify; /*justifica el texto*/
+}
+
+.img-nosotros{
+  height: 900px; /*define el tamaño de la imagen de la pagina de nosotros*/
+  width: auto;
+}
+
+#div-mision-vision{
+  background-color: #ebebeb; /*aplica un color de fondo para el div de la misión y vision de la pagina de nosotros*/
+}
+
+@media (max-width: 576px) {
+  .img-nosotros{
+    height: auto; /*Adapta el tamaño de la imagen de la pagina de nosotros*/
+    width: 450px;
+  }
+
+}
+
+@media (max-width: 1050px) {
+  .img-nosotros{
+    height: auto; /*Adapta el tamaño de la imagen de la pagina de nosotros*/
+    width: 350px;
+  }
+}
+
+.body_tikets {
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+.container_00 {
+  background-color: #006400;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 300px;
+}
+h2 {
+  text-align: center;
+}
+label {
+  display: block;
+  margin-top: 10px;
+}
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 5px;
+}
+input[type="submit"] {
+  background-color: #008000;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 15px;
+}
+input[type="submit"]:hover {
+  background-color: #004200;
+}
+    .boton {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .boton:hover {
+        background-color: #0056b3;
+    }
+    .text-success1{
+      color: #008000;
+    }
+    .btn-success1 {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #008000;
+    --bs-btn-border-color: #006400;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #006400;;
+    --bs-btn-hover-border-color: #006400;
+    --bs-btn-focus-shadow-rgb: 60, 153, 110;
+    --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #006400;
+    --bs-btn-active-border-color: #006400;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #006400;
+    --bs-btn-disabled-border-color: #006400;
+    }
