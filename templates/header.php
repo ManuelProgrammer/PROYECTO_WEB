@@ -24,8 +24,8 @@
           <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
       </div>
-      <button class="btn btn-outline-success">Iniciar Sesión
-        <i class='bx bxs-user' style="color:#004d00"></i>
+        <button class="btn btn-outline-success" onclick="window.location.href='<?= BASE_URL ?>/views/auth.php?mode=login'">
+        Iniciar Sesión <i class='bx bxs-user' style="color:#004d00"></i>
       </button>
     </div>
   </header>

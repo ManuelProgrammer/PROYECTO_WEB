@@ -30,7 +30,8 @@ $mode = $_GET['mode'] ?? 'login';
 
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <form action="<?= BASE_URL ?>/Includes/procesar_auth.php" method="POST">
+        <!-- ✅ FORM corregido con ruta real y nombre de carpeta en minúsculas -->
+        <form action="<?= BASE_URL ?>/includes/procesar_auth.php" method="POST">
           <input type="hidden" name="action" value="<?= $mode ?>">
 
           <?php if ($mode === 'register'): ?>
