@@ -1,0 +1,36 @@
+# Archivos de configuración local
+.env
+*.env
+.env.local
+
+# Directorios de entorno de desarrollo
+/vendor/
+node_modules/
+.idea/
+.vscode/
+
+# Archivos temporales o generados
+*.log
+*.bak
+*.tmp
+*.cache
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Copias o residuos de edición
+*.old
+*.orig
+*.swp
+*.swo
+*~
+
+# Respaldos innecesarios
+*.backup
+
+# Archivos comprimidos o scripts de prueba
+*.zip
+*.rar
+*.sql
+test_conexion.php
