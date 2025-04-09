@@ -1,0 +1,2 @@
+# Forzar saltos de línea LF para todos los archivos de texto
+* text=auto eol=lf
