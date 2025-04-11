@@ -3,7 +3,7 @@ $host = "localhost";
 $usuario = "root";
 $clave = "";
 $base_datos = "tienda_virtual";
-$puerto = 3307;
+$puerto = 3307; // Asegúrate que sea tu puerto real de MySQL
 
 $conn = new mysqli($host, $usuario, $clave, $base_datos, $puerto);
 

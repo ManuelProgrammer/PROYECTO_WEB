@@ -43,7 +43,7 @@
           <a class="nav-link fs-5" href="<?= BASE_URL ?>/index.php">Inicio</a>
         </li>
         <li class="nav-item mx-3">
-          <a class="nav-link fs-5" href="#">Producto</a>
+          <a class="nav-link fs-5" href="<?= BASE_URL ?>/views/productos.php">Producto</a>
         </li>
         <li class="nav-item mx-3">
           <a class="nav-link fs-5" href="<?= BASE_URL ?>/nosotros.php">Acerca de Nosotros</a>
