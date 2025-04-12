@@ -1,10 +1,12 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import AdminPanel from './components/Admin/AdminPanel'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-)
+const el = document.getElementById('root') || document.getElementById('admin-panel-root')
+
+if (el?.id === 'admin-panel-root') {
+  ReactDOM.createRoot(el).render(<AdminPanel />)
+} else if (el?.id === 'root') {
+  ReactDOM.createRoot(el).render(<App />)
+}
