@@ -49,7 +49,7 @@ function App() {
             <div className="col-md-4 mb-4" key={p.id}>
               <div className="card h-100 shadow">
                 <img
-                  src={`http://localhost/mi_proyecto/Multimedia/${p.imagen}`}
+                  src={`http://localhost/mi_proyecto/multimedia/${p.imagen}`}
                   className="card-img-top"
                   alt={p.nombre}
                   onError={e => e.target.style.display = 'none'}
