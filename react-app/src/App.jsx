@@ -143,13 +143,22 @@ function App() {
                 onError={e => (e.target.style.display = 'none')}
               />
               <div className="card-body position-relative">
-                <div className="text-end mb-2">
-                  <i
-                    className={`bx bxs-heart heart-icon ${favoritos.includes(p.id) ? 'favorito' : ''}`}
-                    onClick={() => toggleFavorito(p.id)}
-                    title="Agregar a lista de deseos"
-                  ></i>
-                </div>
+              <div className="d-flex justify-content-end">
+                <i
+                  className={`wishlist-icon bi ${favoritos.includes(p.id) ? 'bi-heart-fill' : 'bi-heart'}`}
+                  data-id={p.id}
+                  style={{
+                    fontSize: '1.5rem',
+                    color: '#1d7e13',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s ease'
+                  }}
+                  onClick={() => toggleFavorito(p.id)}
+                  onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.2)')}
+                  onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                ></i>
+              </div>
+
                 <h5 className="card-title">{p.nombre}</h5>
                 <p className="card-text">{p.descripcion}</p>
                 <p className="card-text fw-bold text-success">${p.precio}</p>
