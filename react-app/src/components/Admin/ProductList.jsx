@@ -18,29 +18,56 @@ export default function ProductList() {
 
   const eliminarProducto = (id) => {
     if (confirm('¿Estás seguro de eliminar este producto?')) {
-      fetch(`/mi_proyecto/api/productos_admin.php?id=${id}`, {
-        method: 'DELETE'
+      fetch('/mi_proyecto/api/productos_admin.php', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id }) // ✅ CORRECTO: se envía como JSON
       })
         .then(res => res.json())
         .then(data => {
           if (data.success) {
             alert('✅ Producto eliminado')
             setProductos(productos.filter(p => p.id !== id))
+          } else {
+            alert('❌ Error al eliminar: ' + (data.error || 'Error desconocido'))
           }
+        })
+        .catch(err => {
+          console.error('❌ Error de red al intentar eliminar el producto', err)
+          alert('❌ Error de red al intentar eliminar el producto')
         })
     }
   }
+  
 
   return (
     <div>
       <h4 className="mb-4">🛒 Administración de Productos</h4>
 
-      {/* Botón para agregar producto */}
-      <div className="text-end mb-3">
-        <button className="btn btn-primary" onClick={() => setProductoEditando({})}>
-          ➕ Agregar Producto
-        </button>
-      </div>
+      {/* Botón para agregar producto / corrección automática de grupos y subgrupos*/}
+      <div className="d-flex justify-content-start gap-2 mb-3">
+  <button className="btn btn-primary" onClick={() => setProductoEditando({})}>
+    ➕ Agregar Producto
+  </button>
+  <button
+    className="btn btn-warning"
+    onClick={() => {
+      if (confirm("¿Deseas ejecutar la corrección automática de grupos y subgrupos?")) {
+        fetch('/mi_proyecto/api/productos_corregir_grupos.php')
+          .then(res => res.text())
+          .then(html => {
+            const nuevaVentana = window.open();
+            nuevaVentana.document.write(html);
+          });
+      }
+    }}
+  >
+    🧹 Corregir grupos/subgrupos automáticamente
+  </button>
+</div>
+
 
       <table className="table table-bordered table-hover">
         <thead className="table-success">

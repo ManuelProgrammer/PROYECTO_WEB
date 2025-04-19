@@ -1,4 +1,6 @@
 <?php
+session_start(); // ✅ Inicia la sesión correctamente
+
 require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../config.php';
 

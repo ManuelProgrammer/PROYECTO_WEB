@@ -3,10 +3,11 @@ session_start();
 require_once '../../config.php';
 
 // ✅ Solo admin puede acceder
-if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
   header("Location: " . BASE_URL . "/index.php");
   exit;
 }
+
 
 // Detectamos archivos del build
 $assets_path = __DIR__ . '/../../public/react/assets';

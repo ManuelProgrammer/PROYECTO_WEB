@@ -5,11 +5,12 @@ header('Content-Type: application/json');
 require_once '../includes/conexion.php';
 
 // Verificar sesión y rol
-if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
   http_response_code(403);
   echo json_encode(['error' => 'Acceso denegado']);
   exit;
 }
+
 
 // Consultar las facturas con nombre del usuario
 $sql = "

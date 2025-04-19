@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+
+.heart-icon {
+  font-size: 1.7rem;
+  cursor: pointer;
+  color: transparent;
+  -webkit-text-stroke: 1px #004d00;
+  transition: all 0.3s ease;
+}
+
+.heart-icon.favorito {
+  color: #004d00;
+  -webkit-text-stroke: 0;
+  transform: scale(1.2);
+}

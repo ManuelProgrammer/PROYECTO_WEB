@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 require_once '../includes/conexion.php';
 
 // ✅ Verificación de permisos
-if (!isset($_SESSION['usuario_id']) || $_SESSION['rol'] !== 'admin') {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['rol'] !== 'admin') {
   http_response_code(403);
   echo json_encode(['error' => 'Acceso denegado']);
   exit;
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   $correo   = $data['correo'] ?? '';
   $telefono = $data['numeroTelefono'] ?? null;
   $rol      = $data['rol'] ?? 'cliente';
-  $activo   = $data['activo'] ?? 1; // ✅ Se incluye activo
+  $activo   = $data['activo'] ?? 1;
 
   if ($id && $nombre && $correo && $rol !== '') {
     $stmt = $conn->prepare("UPDATE usuario SET nombre=?, correo=?, numeroTelefono=?, rol=?, activo=? WHERE id=?");
@@ -51,8 +51,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 // ❌ Eliminar usuario (DELETE)
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-  parse_str(file_get_contents("php://input"), $_DELETE);
-  $id = $_DELETE['id'] ?? null;
+  // ✅ Leer ID desde la URL
+  $id = $_GET['id'] ?? null;
 
   if ($id) {
     $stmt = $conn->prepare("DELETE FROM usuario WHERE id = ?");

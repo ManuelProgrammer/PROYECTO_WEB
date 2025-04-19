@@ -4,7 +4,7 @@ header("Content-Type: application/json");
 
 require_once '../includes/conexion.php';
 
-$sql = "SELECT id, nombre, descripcion, precio, imagen FROM producto";
+$sql = "SELECT id, nombre, precio, grupo, subGrupo, imagen FROM producto";
 $resultado = $conn->query($sql);
 
 $productos = [];

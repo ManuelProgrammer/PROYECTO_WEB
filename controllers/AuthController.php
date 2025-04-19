@@ -7,9 +7,11 @@ class AuthController {
         $usuario = Usuario::buscarPorCorreo($correo);
         if ($usuario && password_verify($clave, $usuario['clave'])) {
             session_start();
-            $_SESSION['usuario_id'] = $usuario['id'];
-            $_SESSION['nombre'] = $usuario['nombre'];
-            $_SESSION['rol'] = $usuario['rol'];
+            $_SESSION['usuario'] = [
+                'id' => $usuario['id'],
+                'nombre' => $usuario['nombre'],
+                'rol' => $usuario['rol']
+            ];
             header("Location: ../index.php");
             exit;
         } else {
@@ -34,3 +36,4 @@ class AuthController {
         exit;
     }
 }
+
