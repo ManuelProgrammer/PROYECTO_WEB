@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     fetch('/mi_proyecto/api/wishlist.php')
       .then(res => res.json())
-      .then(setFavoritos)
+      .then(setFavoritos) 
       .catch(() => setFavoritos([]))
   }, [])
 
