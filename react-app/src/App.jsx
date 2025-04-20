@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     fetch('/mi_proyecto/api/wishlist.php', { credentials: 'include' })
       .then(res => res.ok ? res.json() : [])
-      .then(setFavoritos)
+      .then(data => setFavoritos(data))
       .catch(() => setFavoritos([]))
   }, [])
 
@@ -65,6 +65,27 @@ function App() {
       })
   }
 
+  const agregarAlCarrito = (producto_id) => {
+    const producto = productos.find(p => p.id === producto_id)
+    if (!producto) return
+  
+    const carritoActual = JSON.parse(localStorage.getItem('carrito')) || []
+  
+    const existe = carritoActual.find(p => p.id === producto.id)
+    let actualizado
+  
+    if (existe) {
+      actualizado = carritoActual.map(p =>
+        p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+      )
+    } else {
+      actualizado = [...carritoActual, { ...producto, cantidad: 1 }]
+    }
+  
+    localStorage.setItem('carrito', JSON.stringify(actualizado))
+    alert('✅ Producto agregado al carrito')
+  }
+  
   const productosFiltrados = productos.filter(p => {
     const coincideBusqueda = busqueda
       ? p.nombre.toLowerCase().includes(busqueda) || p.descripcion.toLowerCase().includes(busqueda)
@@ -129,8 +150,15 @@ function App() {
                 </div>
                 <h5 className="card-title text-start">{p.nombre}</h5>
                 <p className="card-text text-start">{p.descripcion}</p>
-                <p className="card-text fw-bold text-success text-start">${p.precio}</p>
-
+                <p className="card-text fw-bold text-success">
+                {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(p.precio)}
+                </p>
+                <button
+                  className="btn btn-outline-success w-100 mt-3"
+                  onClick={() => agregarAlCarrito(p.id)}
+                >
+                  <i className="bi bi-cart-plus me-2"></i> Agregar al carrito
+                </button>
               </div>
             </div>
           </div>
@@ -141,3 +169,4 @@ function App() {
 }
 
 export default App
+

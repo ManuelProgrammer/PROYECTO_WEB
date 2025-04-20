@@ -51,6 +51,7 @@ $isAdmin = $isLoggedIn && $_SESSION['usuario']['rol'] === 'admin';
         <ul class="dropdown-menu dropdown-menu-end">
         <li><a class="dropdown-item" href="<?= BASE_URL ?>/views/usuario/perfil.php">Ver Perfil</a></li>
         <li><a class="dropdown-item" href="<?= BASE_URL ?>/views/usuario/wishlist.php">Lista de deseos ❤️</a></li>
+        <li><a class="dropdown-item" href="<?= BASE_URL ?>/views/usuario/carrito.php">🛒 Mi Carrito</a></li>
         <li><hr class="dropdown-divider"></li>
           <li><a class="dropdown-item text-danger" href="<?= BASE_URL ?>/includes/logout.php">Cerrar Sesión</a></li>
         </ul>

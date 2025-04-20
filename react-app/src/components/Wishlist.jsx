@@ -51,6 +51,19 @@ function Wishlist() {
       })
   }
 
+  const agregarAlCarrito = (producto) => {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || []
+    const yaExiste = carrito.find(item => item.id === producto.id)
+
+    if (!yaExiste) {
+      carrito.push({ ...producto, cantidad: 1 })
+      localStorage.setItem('carrito', JSON.stringify(carrito))
+      alert(`${producto.nombre} agregado al carrito.`)
+    } else {
+      alert('Este producto ya está en el carrito.')
+    }
+  }
+
   const filtrados = productos.filter(p => {
     const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true
     const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true
@@ -110,9 +123,17 @@ function Wishlist() {
                     onClick={() => toggleFavorito(p.id)}
                   ></i>
                 </div>
-                <h5 className="card-title">{p.nombre}</h5>
-                <p className="card-text">{p.descripcion}</p>
-                <p className="card-text fw-bold text-success">${p.precio}</p>
+                <h5 className="card-title text-start">{p.nombre}</h5>
+                <p className="card-text text-start">{p.descripcion}</p>
+                <p className="card-text fw-bold text-success">
+                {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(p.precio)}
+              </p>
+                <button
+                  className="btn btn-success w-100 mt-2"
+                  onClick={() => agregarAlCarrito(p)}
+                >
+                  <i className="bi bi-cart-plus me-2"></i> Agregar al carrito
+                </button>
               </div>
             </div>
           </div>
