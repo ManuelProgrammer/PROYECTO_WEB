@@ -41,16 +41,26 @@
   color: #888;
 }
 
-.heart-icon {
-  font-size: 1.7rem;
+.wishlist-icon {
+  font-size: 1.6rem;
   cursor: pointer;
-  color: transparent;
-  -webkit-text-stroke: 1px #004d00;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
-.heart-icon.favorito {
+/* Corazón contorneado (no está en lista) */
+.wishlist-icon-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #004d00;
+}
+
+/* Corazón relleno (sí está en lista) */
+.wishlist-icon-filled {
   color: #004d00;
-  -webkit-text-stroke: 0;
+}
+
+
+/* Animación al hacer hover */
+.wishlist-icon:hover {
   transform: scale(1.2);
 }
+

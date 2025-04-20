@@ -6,7 +6,6 @@
   "scripts": {
   "dev": "vite",
   "build": "vite build",
-  "postbuild": "cross-env cp -r dist/* ../public/react/",
   "lint": "eslint .",
   "preview": "vite preview"
 },

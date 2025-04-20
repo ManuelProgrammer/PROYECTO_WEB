@@ -7,22 +7,30 @@ $assets_path = __DIR__ . '/../public/react/assets';
 $assets_url = '/mi_proyecto/public/react/assets'; // Ruta pública
 
 $js_file = '';
+$css_file = '';
+
 foreach (scandir($assets_path) as $file) {
     if (str_ends_with($file, '.js')) {
         $js_file = $file;
-        break;
+    }
+    if (str_ends_with($file, '.css')) {
+        $css_file = $file;
     }
 }
-
 ?>
 
-  <!-- React se monta aquí -->
-  <div id="root"></div>
+<!-- React se monta aquí -->
+<div id="root" class="py-4"></div>
 
-<!-- Cargar JS de React compilado -->
+<!-- Cargar CSS del build de Vite -->
+<?php if ($css_file): ?>
+  <link rel="stylesheet" href="<?= $assets_url . '/' . $css_file ?>">
+<?php endif; ?>
+
+<!-- Cargar JS del build de Vite -->
 <?php if ($js_file): ?>
   <script type="module" src="<?= $assets_url . '/' . $js_file ?>"></script>
 <?php endif; ?>
 
-
 <?php require_once '../templates/footer.php'; ?>
+

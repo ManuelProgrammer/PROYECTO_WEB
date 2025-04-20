@@ -1,24 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-// Componentes
+// Componentes principales
 import App from './App'
 import AdminPanel from './components/Admin/AdminPanel'
 import Wishlist from './components/Wishlist'
 
-// Detectar en qué div vamos a renderizar
-const el =
-  document.getElementById('admin-panel-root') ||
-  document.getElementById('wishlist-root') ||
-  document.getElementById('root')
+// 👉 Detectar contenedor React desde HTML
+const elAdmin = document.getElementById('admin-panel-root')
+const elWishlist = document.getElementById('wishlist-root')
+const elApp = document.getElementById('root')
 
-// Renderizar el componente correcto según el ID
-if (el?.id === 'admin-panel-root') {
-  ReactDOM.createRoot(el).render(<AdminPanel />)
-} else if (el?.id === 'wishlist-root') {
-  ReactDOM.createRoot(el).render(<Wishlist />)
-} else if (el?.id === 'root') {
-  ReactDOM.createRoot(el).render(<App />)
+// 🔄 Renderizado condicional según ID del contenedor
+if (elAdmin) {
+  ReactDOM.createRoot(elAdmin).render(<AdminPanel />)
+} else if (elWishlist) {
+  ReactDOM.createRoot(elWishlist).render(<Wishlist />)
+} else if (elApp) {
+  ReactDOM.createRoot(elApp).render(<App />)
 } else {
   console.warn('⚠️ No se encontró un contenedor válido para montar React.')
 }

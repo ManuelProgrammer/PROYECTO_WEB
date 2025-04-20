@@ -5,82 +5,114 @@ function Wishlist() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  
+  const [favoritos, setFavoritos] = useState([])
+
+  const [filtroGrupo, setFiltroGrupo] = useState('')
+  const [filtroSubgrupo, setFiltroSubgrupo] = useState('')
+
+  const gruposYSubgrupos = {
+    'Plantas': ['Ornamentales de Interior', 'Ornamentales de Exterior', 'Trepadoras', 'Arbustos Ornamentales', 'Maceta', 'Colgantes'],
+    'Suculentas': ['Suculentas de Sol', 'Suculentas de Sombra', 'Mini Suculentas', 'Cactus', 'Arreglos con Suculentas'],
+    'Plantas Medicinales': ['Aromáticas', 'Terapéuticas', 'Comestibles'],
+    'Fertilizantes': ['Orgánicos', 'Químicos', 'Líquidos', 'Granulados', 'Para flores', 'Para césped'],
+    'Abonos': ['Humus de lombriz', 'Compost', 'Estiércol', 'Abonos foliares', 'Mezclas para macetas'],
+    'Materas': ['Plásticas', 'Barro', 'Decorativas', 'Colgantes', 'Autorriego'],
+    'Herramientas de Jardinería': ['Palas y rastrillos', 'Guantes', 'Tijeras de poda', 'Regaderas', 'Kits de jardinería']
+  }
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/wishlist.php', {
-      credentials: 'include' // Asegura el envío de cookies de sesión
-    })
-      .then(res => {
-        if (res.status === 401) {
-          setError('Debes iniciar sesión para ver tu lista de deseos.')
-          setLoading(false)
-          return []
-        }
-        if (!res.ok) throw new Error('❌ Error al cargar favoritos')
-        return res.json()
-      })
+    fetch('/mi_proyecto/api/wishlist.php?productos=1', { credentials: 'include' })
+      .then(res => res.ok ? res.json() : [])
       .then(data => {
         setProductos(data)
+        setFavoritos(data.map(p => p.id))
         setLoading(false)
       })
-      .catch(err => {
-        console.error('⚠️ Error:', err)
-        setError('Ocurrió un error al cargar los productos.')
+      .catch(() => {
+        setError('No se pudo cargar la lista de deseos.')
         setLoading(false)
       })
   }, [])
 
+  const toggleFavorito = (id) => {
+    const metodo = favoritos.includes(id) ? 'DELETE' : 'POST'
+
+    fetch('/mi_proyecto/api/wishlist.php', {
+      method: metodo,
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ producto_id: id })
+    })
+      .then(() => {
+        setFavoritos(prev =>
+          metodo === 'POST' ? [...prev, id] : prev.filter(pid => pid !== id)
+        )
+        setProductos(prev => metodo === 'POST' ? prev : prev.filter(p => p.id !== id))
+      })
+  }
+
+  const filtrados = productos.filter(p => {
+    const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true
+    const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true
+    return coincideGrupo && coincideSubgrupo
+  })
+
   return (
     <div className="container py-4">
       <h2 className="mb-5 text-center" style={{ color: '#004d00' }}>
-        <i className="bx bxs-heart" style={{ fontSize: '1.5rem', marginRight: '8px', verticalAlign: 'middle' }}></i>
-        Mi Lista de Deseos
+        <i className="bi bi-heart-fill me-2"></i> Mi Lista de Deseos
       </h2>
 
-      {loading && <p className="text-muted text-center">Cargando productos favoritos...</p>}
+      {/* Filtros */}
+      <div className="row mb-4">
+        <div className="col-md-6">
+          <label className="form-label">Grupo</label>
+          <select className="form-select" value={filtroGrupo} onChange={e => {
+            setFiltroGrupo(e.target.value)
+            setFiltroSubgrupo('')
+          }}>
+            <option value="">Todos</option>
+            {Object.keys(gruposYSubgrupos).map(grupo => (
+              <option key={grupo} value={grupo}>{grupo}</option>
+            ))}
+          </select>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label">Subgrupo</label>
+          <select className="form-select" value={filtroSubgrupo} onChange={e => setFiltroSubgrupo(e.target.value)} disabled={!filtroGrupo}>
+            <option value="">Todos</option>
+            {gruposYSubgrupos[filtroGrupo]?.map(sg => (
+              <option key={sg} value={sg}>{sg}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {loading && <p className="text-center text-muted">Cargando favoritos...</p>}
       {error && <div className="alert alert-danger text-center">{error}</div>}
 
       <div className="row">
-        {productos.length === 0 && !loading && !error && (
-          <p className="text-muted text-center">No hay productos en tu lista de deseos.</p>
-        )}
-        {productos.map(p => (
+        {filtrados.map(p => (
           <div className="col-md-4 mb-4" key={p.id}>
             <div className="card h-100 shadow-sm">
               <img
-                src={
-                  p.imagen
-                    ? `http://localhost/mi_proyecto/multimedia/${p.imagen}`
-                    : `http://localhost/mi_proyecto/multimedia/no-image.png`
-                }
-                alt={p.nombre || 'Producto sin nombre'}
+                src={`http://localhost/mi_proyecto/multimedia/${p.imagen || 'no-image.png'}`}
                 className="card-img-top"
-                onError={e => {
-                  e.target.onerror = null
-                  e.target.src = 'http://localhost/mi_proyecto/multimedia/no-image.png'
-                }}
+                onError={e => { e.target.src = '/mi_proyecto/multimedia/no-image.png' }}
+                alt={p.nombre}
               />
               <div className="card-body">
-              <div className="d-flex justify-content-end">
-                <i
-                  className={`wishlist-icon bi ${favoritos.includes(p.id) ? 'bi-heart-fill' : 'bi-heart'}`}
-                  data-id={p.id}
-                  style={{
-                    fontSize: '1.5rem',
-                    color: '#1d7e13',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s ease'
-                  }}
-                  onClick={() => toggleFavorito(p.id)}
-                  onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.2)')}
-                  onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-                ></i>
-              </div>
-
-                <h5 className="card-title">{p.nombre || 'Producto sin nombre'}</h5>
-                <p className="card-text">{p.descripcion || 'Sin descripción disponible.'}</p>
-                <p className="card-text fw-bold text-success">${p.precio || '0.00'}</p>
+                <div className="d-flex justify-content-end">
+                  <i
+                    className={`bi ${favoritos.includes(p.id)
+                      ? 'bi-heart-fill wishlist-icon-filled'
+                      : 'bi-heart wishlist-icon-outline'} wishlist-icon`}
+                    onClick={() => toggleFavorito(p.id)}
+                  ></i>
+                </div>
+                <h5 className="card-title">{p.nombre}</h5>
+                <p className="card-text">{p.descripcion}</p>
+                <p className="card-text fw-bold text-success">${p.precio}</p>
               </div>
             </div>
           </div>

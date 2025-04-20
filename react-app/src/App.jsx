@@ -19,39 +19,31 @@ function App() {
   const [busqueda, setBusqueda] = useState('')
   const [filtroGrupo, setFiltroGrupo] = useState('')
   const [filtroSubgrupo, setFiltroSubgrupo] = useState('')
-
   const [favoritos, setFavoritos] = useState([])
 
-  // ✅ Obtener búsqueda desde URL
   useEffect(() => {
     const url = new URL(window.location.href)
     const q = url.searchParams.get('busqueda')?.toLowerCase() || ''
     setBusqueda(q)
   }, [])
 
-  // ✅ Cargar productos
   useEffect(() => {
-    fetch('http://localhost/mi_proyecto/api/productos.php')
-      .then(res => {
-        if (!res.ok) throw new Error('❌ Error en la respuesta del servidor')
-        return res.json()
-      })
+    fetch('/mi_proyecto/api/productos.php')
+      .then(res => res.json())
       .then(data => {
         setProductos(data)
         setLoading(false)
       })
-      .catch(err => {
-        console.error('⚠️ Error al cargar productos:', err)
-        setError('No se pudieron cargar los productos.')
+      .catch(() => {
+        setError('Error al cargar productos')
         setLoading(false)
       })
   }, [])
 
-  // ✅ Cargar wishlist del usuario
   useEffect(() => {
-    fetch('/mi_proyecto/api/wishlist.php')
-      .then(res => res.json())
-      .then(setFavoritos) 
+    fetch('/mi_proyecto/api/wishlist.php', { credentials: 'include' })
+      .then(res => res.ok ? res.json() : [])
+      .then(setFavoritos)
       .catch(() => setFavoritos([]))
   }, [])
 
@@ -61,9 +53,9 @@ function App() {
     fetch('/mi_proyecto/api/wishlist.php', {
       method: metodo,
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ producto_id: id })
     })
-      .then(res => res.json())
       .then(() => {
         setFavoritos(prev =>
           metodo === 'POST'
@@ -75,93 +67,70 @@ function App() {
 
   const productosFiltrados = productos.filter(p => {
     const coincideBusqueda = busqueda
-      ? (p.nombre?.toLowerCase().includes(busqueda) || p.descripcion?.toLowerCase().includes(busqueda))
+      ? p.nombre.toLowerCase().includes(busqueda) || p.descripcion.toLowerCase().includes(busqueda)
       : true
-
     const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true
     const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true
-
     return coincideBusqueda && coincideGrupo && coincideSubgrupo
   })
 
   return (
     <div className="container py-4">
       <h2 className="mb-5 text-center" style={{ color: '#004d00' }}>
-        <i className="bx bxs-leaf" style={{ fontSize: '1.5rem', marginRight: '8px', verticalAlign: 'middle' }}></i>
-        Nuestros Productos
+        <i className="bx bxs-leaf me-2"></i> Nuestros Productos
       </h2>
 
       {/* Filtros */}
       <div className="row mb-4">
         <div className="col-md-6">
-          <label className="form-label">Filtrar por Grupo</label>
-          <select
-            className="form-select"
-            value={filtroGrupo}
-            onChange={e => {
-              setFiltroGrupo(e.target.value)
-              setFiltroSubgrupo('')
-            }}
-          >
-            <option value="">-- Todos los grupos --</option>
+          <label className="form-label">Grupo</label>
+          <select className="form-select" value={filtroGrupo} onChange={e => {
+            setFiltroGrupo(e.target.value)
+            setFiltroSubgrupo('')
+          }}>
+            <option value="">Todos</option>
             {Object.keys(gruposYSubgrupos).map(grupo => (
               <option key={grupo} value={grupo}>{grupo}</option>
             ))}
           </select>
         </div>
-
         <div className="col-md-6">
-          <label className="form-label">Filtrar por Subgrupo</label>
-          <select
-            className="form-select"
-            value={filtroSubgrupo}
-            onChange={e => setFiltroSubgrupo(e.target.value)}
-            disabled={!filtroGrupo}
-          >
-            <option value="">-- Todos los subgrupos --</option>
-            {filtroGrupo && gruposYSubgrupos[filtroGrupo].map(sub => (
-              <option key={sub} value={sub}>{sub}</option>
+          <label className="form-label">Subgrupo</label>
+          <select className="form-select" value={filtroSubgrupo} onChange={e => setFiltroSubgrupo(e.target.value)} disabled={!filtroGrupo}>
+            <option value="">Todos</option>
+            {gruposYSubgrupos[filtroGrupo]?.map(sg => (
+              <option key={sg} value={sg}>{sg}</option>
             ))}
           </select>
         </div>
       </div>
 
-      {loading && <p className="text-muted text-center">Cargando productos...</p>}
+      {loading && <p className="text-center text-muted">Cargando productos...</p>}
       {error && <div className="alert alert-danger text-center">{error}</div>}
 
       <div className="row">
-        {productosFiltrados.length === 0 && !loading && (
-          <p className="text-muted text-center">No se encontraron productos.</p>
-        )}
         {productosFiltrados.map(p => (
           <div className="col-md-4 mb-4" key={p.id}>
             <div className="card h-100 shadow-sm">
               <img
-                src={`http://localhost/mi_proyecto/multimedia/${p.imagen}`}
+                src={`http://localhost/mi_proyecto/multimedia/${p.imagen || 'no-image.png'}`}
                 className="card-img-top"
+                onError={e => { e.target.src = '/mi_proyecto/multimedia/no-image.png' }}
                 alt={p.nombre}
-                onError={e => (e.target.style.display = 'none')}
               />
-              <div className="card-body position-relative">
-              <div className="d-flex justify-content-end">
-                <i
-                  className={`wishlist-icon bi ${favoritos.includes(p.id) ? 'bi-heart-fill' : 'bi-heart'}`}
-                  data-id={p.id}
-                  style={{
-                    fontSize: '1.5rem',
-                    color: '#1d7e13',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s ease'
-                  }}
-                  onClick={() => toggleFavorito(p.id)}
-                  onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.2)')}
-                  onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-                ></i>
-              </div>
+              <div className="card-body">
+                <div className="d-flex justify-content-end">
+                  <i
+                    className={`bi ${favoritos.includes(p.id)
+                      ? 'bi-heart-fill wishlist-icon-filled'
+                      : 'bi-heart wishlist-icon-outline'} wishlist-icon`}
+                    onClick={() => toggleFavorito(p.id)}
+                  ></i>
+                </div>
+                <h5 className="card-title text-start">{p.nombre}</h5>
+                <p className="card-text text-start">{p.descripcion}</p>
+                <p className="card-text fw-bold text-success text-start">${p.precio}</p>
 
-                <h5 className="card-title">{p.nombre}</h5>
-                <p className="card-text">{p.descripcion}</p>
-                <p className="card-text fw-bold text-success">${p.precio}</p>
               </div>
             </div>
           </div>
@@ -172,4 +141,3 @@ function App() {
 }
 
 export default App
-

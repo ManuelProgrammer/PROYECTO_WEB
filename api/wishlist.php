@@ -3,22 +3,18 @@ session_start();
 header('Content-Type: application/json');
 require_once '../includes/conexion.php';
 
-if (!isset($_SESSION['usuario'])) {
+// Validación de sesión
+if (empty($_SESSION['usuario']['id'])) {
   http_response_code(401);
-  echo json_encode([]); // React espera un array
+  echo json_encode([]); // ⚠️ React espera un array vacío
   exit;
 }
 
-$usuario_id = $_SESSION['usuario']['id'] ?? null;
-
-if (!$usuario_id) {
-  http_response_code(401);
-  echo json_encode([]);
-  exit;
-}
+$usuario_id = $_SESSION['usuario']['id'];
 
 switch ($_SERVER['REQUEST_METHOD']) {
   case 'GET':
+    // 🛒 Obtener productos completos
     if (isset($_GET['productos']) && $_GET['productos'] == 1) {
       $sql = "SELECT p.* 
               FROM wishlist w 
@@ -43,6 +39,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
       exit;
     }
 
+    // 🆔 Obtener solo IDs de productos
     $sql = "SELECT producto_id FROM wishlist WHERE usuario_id = ?";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -101,7 +98,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     break;
 
   default:
-    http_response_code(405);
+    http_response_code(405); // Method Not Allowed
     echo json_encode(['error' => 'Método no permitido']);
     break;
 }
