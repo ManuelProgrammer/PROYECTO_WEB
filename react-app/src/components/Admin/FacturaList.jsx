@@ -30,10 +30,10 @@ export default function FacturaList() {
             <tr key={factura.numeroFactura}>
               <td>{factura.numeroFactura}</td>
               <td>{factura.cliente}</td>
-              <td>{factura.fecha}</td>
-              <td>${factura.subTotal}</td>
-              <td>${factura.igv}</td>
-              <td><strong>${factura.total}</strong></td>
+              <td>{new Date(factura.fecha).toLocaleString()}</td>
+              <td>COP ${factura.subTotal}</td>
+              <td>COP ${factura.igv}</td>
+              <td><strong>COP ${factura.total}</strong></td>
             </tr>
           ))}
         </tbody>

@@ -267,3 +267,11 @@ body {
 main {
   flex: 1;
 }
+
+.highlight {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 20px;
+}

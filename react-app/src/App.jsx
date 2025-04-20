@@ -132,7 +132,7 @@ function App() {
       <div className="row">
         {productosFiltrados.map(p => (
           <div className="col-md-4 mb-4" key={p.id}>
-            <div className="card h-100 shadow-sm">
+            <div className="card h-100 shadow-sm animate-hover">
               <img
                 src={`http://localhost/mi_proyecto/multimedia/${p.imagen || 'no-image.png'}`}
                 className="card-img-top"

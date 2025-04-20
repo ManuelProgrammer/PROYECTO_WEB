@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT
   $grupo        = $_POST['grupo'] ?? '';
   $subGrupo     = $_POST['subGrupo'] ?? '';
   $descripcion  = $_POST['descripcion'] ?? '';
+  $destacado    = isset($_POST['destacado']) ? intval($_POST['destacado']) : 0;
   $precio       = floatval($_POST['precio'] ?? 0);
   $stock        = intval($_POST['stock'] ?? 0);
   $nombreImagen = null;
@@ -43,19 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'PUT
   if ($id) {
     // UPDATE
     if ($nombreImagen) {
-      $sql = "UPDATE producto SET nombre=?, grupo=?, subGrupo=?, descripcion=?, precio=?, stock=?, imagen=? WHERE id=?";
+      $sql = "UPDATE producto SET nombre=?, grupo=?, subGrupo=?, descripcion=?, precio=?, stock=?, imagen=?, destacado=? WHERE id=?";
       $stmt = $conn->prepare($sql);
-      $stmt->bind_param("ssssdisi", $nombre, $grupo, $subGrupo, $descripcion, $precio, $stock, $nombreImagen, $id);
+      $stmt->bind_param("ssssdisii", $nombre, $grupo, $subGrupo, $descripcion, $precio, $stock, $nombreImagen, $destacado, $id);
     } else {
-      $sql = "UPDATE producto SET nombre=?, grupo=?, subGrupo=?, descripcion=?, precio=?, stock=? WHERE id=?";
+      $sql = "UPDATE producto SET nombre=?, grupo=?, subGrupo=?, descripcion=?, precio=?, stock=?, destacado=? WHERE id=?";
       $stmt = $conn->prepare($sql);
-      $stmt->bind_param("ssssdis", $nombre, $grupo, $subGrupo, $descripcion, $precio, $stock, $id);
+      $stmt->bind_param("ssssdisi", $nombre, $grupo, $subGrupo, $descripcion, $precio, $stock, $destacado, $id);
     }
   } else {
     // INSERT
-    $sql = "INSERT INTO producto (nombre, grupo, subGrupo, descripcion, precio, stock, imagen) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO producto (nombre, grupo, subGrupo, descripcion, precio, stock, imagen, destacado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssdis", $nombre, $grupo, $subGrupo, $descripcion, $precio, $stock, $nombreImagen);
+    $stmt->bind_param("ssssdisi", $nombre, $grupo, $subGrupo, $descripcion, $precio, $stock, $nombreImagen, $destacado);
   }
 
   $success = $stmt->execute();

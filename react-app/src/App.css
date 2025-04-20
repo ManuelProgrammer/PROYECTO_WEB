@@ -64,3 +64,31 @@
   transform: scale(1.2);
 }
 
+.highlight {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.animate-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.animate-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Animación al hacer hover sobre tarjetas */
+.animate-hover:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+

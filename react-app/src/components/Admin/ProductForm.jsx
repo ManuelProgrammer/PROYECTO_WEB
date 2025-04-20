@@ -9,71 +9,25 @@ export default function ProductForm({ producto, onClose, onSave }) {
     descripcion: '',
     precio: '',
     stock: '',
-    imagen: null
+    imagen: null,
+    destacado: 0
   })
 
   const [previewImage, setPreviewImage] = useState(null)
   const modoEdicion = !!producto
 
   const gruposYSubgrupos = {
-    'Plantas': [
-      'Ornamentales de Interior',
-      'Ornamentales de Exterior',
-      'Trepadoras',
-      'Arbustos Ornamentales',
-      'Maceta',
-      'Colgantes'
-    ],
-    'Suculentas': [
-      'Suculentas de Sol',
-      'Suculentas de Sombra',
-      'Mini Suculentas',
-      'Cactus',
-      'Arreglos con Suculentas'
-    ],
-    'Plantas Medicinales': [
-      'Aromáticas',
-      'Terapéuticas',
-      'Comestibles'
-    ],
-    'Fertilizantes': [
-      'Orgánicos',
-      'Químicos',
-      'Líquidos',
-      'Granulados',
-      'Para flores',
-      'Para césped'
-    ],
-    'Abonos': [
-      'Humus de lombriz',
-      'Compost',
-      'Estiércol',
-      'Abonos foliares',
-      'Mezclas para macetas'
-    ],
-    'Materas': [
-      'Plásticas',
-      'Barro',
-      'Decorativas',
-      'Colgantes',
-      'Autorriego'
-    ],
-    'Herramientas de Jardinería': [
-      'Palas y rastrillos',
-      'Guantes',
-      'Tijeras de poda',
-      'Regaderas',
-      'Kits de jardinería'
-    ]
+    'Plantas': ['Ornamentales de Interior', 'Ornamentales de Exterior', 'Trepadoras', 'Arbustos Ornamentales', 'Maceta', 'Colgantes'],
+    'Suculentas': ['Suculentas de Sol', 'Suculentas de Sombra', 'Mini Suculentas', 'Cactus', 'Arreglos con Suculentas'],
+    'Plantas Medicinales': ['Aromáticas', 'Terapéuticas', 'Comestibles'],
+    'Fertilizantes': ['Orgánicos', 'Químicos', 'Líquidos', 'Granulados', 'Para flores', 'Para césped'],
+    'Abonos': ['Humus de lombriz', 'Compost', 'Estiércol', 'Abonos foliares', 'Mezclas para macetas'],
+    'Materas': ['Plásticas', 'Barro', 'Decorativas', 'Colgantes', 'Autorriego'],
+    'Herramientas de Jardinería': ['Palas y rastrillos', 'Guantes', 'Tijeras de poda', 'Regaderas', 'Kits de jardinería']
   }
 
   useEffect(() => {
     if (producto) {
-      // ⚠️ Log de advertencia si el grupo del producto no está en la lista conocida
-      if (producto.grupo && !gruposYSubgrupos[producto.grupo]) {
-        console.warn('⚠️ Grupo desconocido en producto:', producto)
-      }
-
       setFormData({
         id: producto.id || '',
         nombre: producto.nombre || '',
@@ -82,7 +36,8 @@ export default function ProductForm({ producto, onClose, onSave }) {
         descripcion: producto.descripcion || '',
         precio: producto.precio || '',
         stock: producto.stock || '',
-        imagen: null
+        imagen: null,
+        destacado: producto.destacado || 0
       })
 
       if (producto.imagen) {
@@ -94,13 +49,18 @@ export default function ProductForm({ producto, onClose, onSave }) {
   }, [producto])
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type, checked } = e.target
 
     if (name === 'grupo') {
       setFormData(prev => ({
         ...prev,
         grupo: value,
-        subGrupo: '' // Reinicia el subgrupo al cambiar grupo
+        subGrupo: ''
+      }))
+    } else if (type === 'checkbox') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: checked ? 1 : 0
       }))
     } else {
       setFormData(prev => ({
@@ -129,6 +89,7 @@ export default function ProductForm({ producto, onClose, onSave }) {
     data.append('descripcion', formData.descripcion)
     data.append('precio', formData.precio)
     data.append('stock', formData.stock)
+    data.append('destacado', formData.destacado)
     if (formData.imagen) data.append('imagen', formData.imagen)
 
     fetch('/mi_proyecto/api/productos_admin.php', {
@@ -190,7 +151,6 @@ export default function ProductForm({ producto, onClose, onSave }) {
                 </select>
               </div>
 
-              {/* Validación defensiva para subgrupo */}
               {formData.grupo && gruposYSubgrupos[formData.grupo] && (
                 <div className="mb-2">
                   <label className="form-label">Subgrupo</label>
@@ -243,6 +203,20 @@ export default function ProductForm({ producto, onClose, onSave }) {
                 />
               </div>
 
+              <div className="mb-3 form-check">
+                <input
+                  type="checkbox"
+                  name="destacado"
+                  className="form-check-input"
+                  id="destacadoCheck"
+                  checked={!!formData.destacado}
+                  onChange={handleChange}
+                />
+                <label className="form-check-label" htmlFor="destacadoCheck">
+                  Marcar como destacado
+                </label>
+              </div>
+
               <div className="mb-3">
                 <label className="form-label">Imagen</label>
                 <input
@@ -261,7 +235,6 @@ export default function ProductForm({ producto, onClose, onSave }) {
                   />
                 )}
               </div>
-
             </div>
             <div className="modal-footer">
               <button type="submit" className="btn btn-success">

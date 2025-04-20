@@ -9,10 +9,18 @@ export default function Dashboard() {
   })
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/dashboard.php')
-      .then(res => res.json())
-      .then(data => setData(data))
-      .catch(err => console.error("❌ Error al cargar dashboard", err))
+    fetch('/mi_proyecto/api/dashboard.php', {
+      credentials: 'include' // ✅ Importante para que se mande la cookie de sesión
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Error en la respuesta del servidor')
+        return res.json()
+      })
+      .then(data => {
+        console.log('📊 Datos:', data)
+        setData(data)
+      })
+      .catch(err => console.error('❌ Error al obtener estadísticas:', err))
   }, [])
 
   return (
