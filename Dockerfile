@@ -1,20 +1,20 @@
-# Usa una imagen base específica de PHP con Apache
+# Imagen base con Apache y PHP
 FROM php:8.2-apache
 
-# Establece el directorio de trabajo
+# Establecer directorio de trabajo
 WORKDIR /var/www/html
 
-# Copia los archivos del proyecto al contenedor
-COPY . .
+# Copiar el contenido del proyecto
+COPY mi_proyecto/ .
 
-# Instala Composer globalmente
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Habilitar mod_rewrite si usas .htaccess
+RUN a2enmod rewrite
 
-# Instala las dependencias del proyecto
-RUN composer install --no-dev --optimize-autoloader
+# Dar permisos si es necesario (opcional)
+RUN chown -R www-data:www-data /var/www/html
 
-# Expone el puerto 80
+# Exponer el puerto 80
 EXPOSE 80
 
-# Comando por defecto para iniciar Apache
+# Comando para iniciar Apache
 CMD ["apache2-foreground"]
