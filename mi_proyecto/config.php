@@ -1,6 +1,7 @@
 <?php
-if ($_SERVER["HTTPS"] != "on") {
-    $redirect = "https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
-    header("Location:$redirect");
-    exit;
-}
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'];
+$basePath = "/mi_proyecto"; // o ajusta si cambiaste la estructura
+
+define('BASE_URL', $protocol . $host . $basePath);
+?>

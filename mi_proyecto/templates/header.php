@@ -19,7 +19,7 @@ $isAdmin = $isLoggedIn && $_SESSION['usuario']['rol'] === 'admin';
  <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="<?= BASE_URL ?>/style/style_index.css">
+  <link rel="stylesheet" href="<?= $base_url ?>style/style_index.css">
 </head>
 <body>
 <header class="header-bg py-2">
