@@ -9,25 +9,26 @@
         <h5>Quiénes Somos</h5>
         <ul class="list-unstyled">
           <li><a href="<?= BASE_URL ?>/index.php" class="text-white">Inicio</a></li>
-          <li><a href="#" class="text-white">Productos</a></li>
+          <li><a href="<?= BASE_URL ?>/views/productos.php" class="text-white">Productos</a></li>
           <li><a href="<?= BASE_URL ?>/nosotros.php" class="text-white">Acerca de Nosotros</a></li>
-          <li><a href="#" class="text-white">Soporte</a></li>
-          <li><a href="#" class="text-white">Iniciar Sesión</a></li>
-          <li><a href="#" class="text-white">Regístrate</a></li>
+          <li><a href="<?= BASE_URL ?>/soport.php" class="text-white">Soporte</a></li>
+          <li><a href="<?= BASE_URL ?>/views/auth.php?mode=login" class="text-white">Iniciar Sesión</a></li>
+          <li><a href="<?= BASE_URL ?>/views/auth.php?mode=register" class="text-white">Regístrate</a></li>
         </ul>
       </div>
 
       <div class="col-md-4 col-sm-12 cont-footer">
         <h5>Contáctenos</h5>
         <p>Manzana 12 Casa 12 Villa Jaidith</p>
-        <p>Colombia Valledupar Cesar</p>
+        <p>Colombia, Valledupar - Cesar</p>
         <p>Tel: 3145964947 | Cel: 3003123507</p>
-        <p>Email: fontalvcoronado9@gmail.com</p>
+        <p>Email: <a href="mailto:fontalvcoronado9@gmail.com" class="text-white">fontalvcoronado9@gmail.com</a></p>
       </div>
     </div>
   </div>
 </footer>
 
+<!-- Bootstrap Bundle (JS) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
