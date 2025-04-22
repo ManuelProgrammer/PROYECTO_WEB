@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 
-const gruposYSubgrupos = {
-  'Plantas': ['Ornamentales de Interior', 'Ornamentales de Exterior', 'Trepadoras', 'Arbustos Ornamentales', 'Maceta', 'Colgantes'],
-  'Suculentas': ['Suculentas de Sol', 'Suculentas de Sombra', 'Mini Suculentas', 'Cactus', 'Arreglos con Suculentas'],
-  'Plantas Medicinales': ['Aromáticas', 'Terapéuticas', 'Comestibles'],
-  'Fertilizantes': ['Orgánicos', 'Químicos', 'Líquidos', 'Granulados', 'Para flores', 'Para césped'],
-  'Abonos': ['Humus de lombriz', 'Compost', 'Estiércol', 'Abonos foliares', 'Mezclas para macetas'],
-  'Materas': ['Plásticas', 'Barro', 'Decorativas', 'Colgantes', 'Autorriego'],
-  'Herramientas de Jardinería': ['Palas y rastrillos', 'Guantes', 'Tijeras de poda', 'Regaderas', 'Kits de jardinería']
-}
 
-function App() {
+  function App() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [favoritos, setFavoritos] = useState([])
 
   const [busqueda, setBusqueda] = useState('')
   const [filtroGrupo, setFiltroGrupo] = useState('')
   const [filtroSubgrupo, setFiltroSubgrupo] = useState('')
-  const [favoritos, setFavoritos] = useState([])
-
+  
   useEffect(() => {
     const url = new URL(window.location.href)
     const q = url.searchParams.get('busqueda')?.toLowerCase() || ''
     setBusqueda(q)
   }, [])
+
+  const gruposYSubgrupos = {
+    'Plantas': ['Ornamentales de Interior', 'Ornamentales de Exterior', 'Trepadoras', 'Arbustos Ornamentales', 'Maceta', 'Colgantes'],
+    'Suculentas': ['Suculentas de Sol', 'Suculentas de Sombra', 'Mini Suculentas', 'Cactus', 'Arreglos con Suculentas'],
+    'Plantas Medicinales': ['Aromáticas', 'Terapéuticas', 'Comestibles'],
+    'Fertilizantes': ['Orgánicos', 'Químicos', 'Líquidos', 'Granulados', 'Para flores', 'Para césped'],
+    'Abonos': ['Humus de lombriz', 'Compost', 'Estiércol', 'Abonos foliares', 'Mezclas para macetas'],
+    'Materas': ['Plásticas', 'Barro', 'Decorativas', 'Colgantes', 'Autorriego'],
+    'Herramientas de Jardinería': ['Palas y rastrillos', 'Guantes', 'Tijeras de poda', 'Regaderas', 'Kits de jardinería']
+  }
 
   useEffect(() => {
     fetch('/api/productos.php')
