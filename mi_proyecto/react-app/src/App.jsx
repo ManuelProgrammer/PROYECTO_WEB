@@ -88,12 +88,13 @@ function App() {
   
   const productosFiltrados = productos.filter(p => {
     const coincideBusqueda = busqueda
-  ? (p.nombre?.toLowerCase() || '').includes(busqueda) || (p.descripcion?.toLowerCase() || '').includes(busqueda)
-  : true
-    const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true
-    const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true
-    return coincideBusqueda && coincideGrupo && coincideSubgrupo
-  })
+      ? (p.nombre?.toLowerCase().includes(busqueda) || p.descripcion?.toLowerCase().includes(busqueda))
+      : true;
+    const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true;
+    const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true;
+    return coincideBusqueda && coincideGrupo && coincideSubgrupo;
+  });
+  
 
   return (
     <div className="container py-4">
