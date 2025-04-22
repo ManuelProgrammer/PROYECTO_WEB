@@ -97,7 +97,7 @@ function App() {
   
 
   return (
-    <div className="container-fluid py-4 px-3 px-md-5">
+    <div className="col-12 col-sm-6 col-md-4 mb-4" key={p.id}>
       <h2 className="mb-5 text-center" style={{ color: '#004d00' }}>
         <i className="bx bxs-leaf me-2"></i> Nuestros Productos
       </h2>
