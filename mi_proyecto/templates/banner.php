@@ -31,14 +31,13 @@ if (empty($imagenes)) {
 ?>
 
 <!-- Banner limpio y sin márgenes -->
-<div class="w-100 p-0 m-0 banner-ajustado">
+<div class="container-fluid p-0 m-0"> <!-- Usa container-fluid para que sea ancho completo -->
   <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <?php foreach ($imagenes as $index => $rutaImagen): ?>
         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-          <img src="<?= str_replace(__DIR__ . '/../', BASE_URL . '/', $rutaImagen) ?>"
-               class="d-block w-100"
-               style="max-height: 400px; object-fit: cover;"
+          <img src="<?= str_replace(__DIR__ . '/../', BASE_URL . '/', $rutaImagen) ?>" 
+               class="d-block w-100" 
                alt="Banner <?= $index + 1 ?>">
         </div>
       <?php endforeach; ?>
@@ -46,11 +45,11 @@ if (empty($imagenes)) {
 
     <?php if (count($imagenes) > 1): ?>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Siguiente</span>
       </button>
     <?php endif; ?>
