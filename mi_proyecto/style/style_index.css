@@ -17,10 +17,7 @@ Elimina márgenes del body */
   margin-bottom: 0 !important;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
+
 
 /* Hace que el banner no se recorte ni tenga espacios blancos */
 .carousel img {
