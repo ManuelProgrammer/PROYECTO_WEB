@@ -20,7 +20,7 @@ foreach (scandir($assets_path) as $file) {
 ?>
 
 <!-- React se monta aquí -->
-<div id="root" class="py-4"></div>
+<div id="root" class="container-fluid py-4 px-3 px-md-5"></div>
 
 <!-- Cargar CSS del build de Vite -->
 <?php if ($css_file): ?>
