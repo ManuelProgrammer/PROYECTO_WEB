@@ -55,7 +55,7 @@ export default function ProductList() {
     className="btn btn-warning"
     onClick={() => {
       if (confirm("¿Deseas ejecutar la corrección automática de grupos y subgrupos?")) {
-        fetch('/mi_proyecto/api/productos_corregir_grupos.php')
+        fetch('/api/productos_corregir_grupos.php')
           .then(res => res.text())
           .then(html => {
             const nuevaVentana = window.open();
@@ -90,7 +90,7 @@ export default function ProductList() {
               <td>${prod.precio}</td>
               <td>{prod.stock}</td>
               <td>
-                <img src={`/mi_proyecto/multimedia/${prod.imagen}`} alt={prod.nombre} style={{ width: '60px' }} />
+                <img src={`/multimedia/${prod.imagen}`} alt={prod.nombre} style={{ width: '60px' }} />
               </td>
               <td>
                 <button className="btn btn-sm btn-danger me-2" onClick={() => eliminarProducto(prod.id)}>Eliminar</button>
