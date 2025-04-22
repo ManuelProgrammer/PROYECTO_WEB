@@ -1,17 +1,18 @@
 <?php
-$host = getenv("DB_HOST");
-$user = getenv("DB_USER");
-$pass = getenv("DB_PASS");
-$db   = getenv("DB_NAME");
-$port = getenv("DB_PORT");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
 
-$conn = new mysqli($host, $user, $pass, $db, $port);
+// Configuración para Railway
+$host = "interchange.proxy.rlwy.net";
+$usuario = "root";
+$clave = "aCnVZeLPXFKwiqchWBNVPnlKbyfPKnNk";
+$base_datos = "railway";
+$puerto = 10100;
 
-// Verificar conexión
+$conn = new mysqli($host, $usuario, $clave, $base_datos, $puerto);
+
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    die("❌ Error al conectar con la base de datos: " . $conn->connect_error);
 }
-
-// Puedes eliminar esto si no lo necesitas para debug
-// echo "Conexión exitosa";
 ?>
