@@ -1,5 +1,8 @@
 <?php
-session_start(); // ✅ Inicia la sesión correctamente
+// Iniciar la sesión solo si no está activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once __DIR__ . '/../controllers/AuthController.php';
 require_once __DIR__ . '/../config.php';
@@ -19,6 +22,7 @@ if ($action === 'register') {
 } elseif ($action === 'login') {
     // Llama al controlador para iniciar sesión
     AuthController::login($correo, $clave);
+
 } else {
     // Acción inválida
     header("Location: ../views/auth.php?mode=login&error=invalid_action");

@@ -1,21 +1,29 @@
 <?php
-session_start();
+// Iniciar sesión si no está activa
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Eliminar todas las variables de sesión
 $_SESSION = [];
 
-// Eliminar cookie de sesión (opcional pero recomendable)
+// Eliminar cookie de sesión si aplica
 if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-        $params['path'], $params['domain'],
-        $params['secure'], $params['httponly']
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params["path"],
+        $params["domain"],
+        $params["secure"],
+        $params["httponly"]
     );
 }
 
-// Finalmente destruir la sesión
+// Destruir la sesión
 session_destroy();
 
-// Redirigir al login con modo correcto
+// Redirigir al login
 header("Location: ../views/auth.php?mode=login");
 exit;
