@@ -134,12 +134,13 @@ function App() {
         {productosFiltrados.map(p => (
           <div className="col-md-4 mb-4" key={p.id}>
             <div className="card h-100 shadow-sm animate-hover">
-              <img
-                src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
-                className="card-img-top"
-                onError={e => { e.target.src = '/multimedia/no-image.png' }}
-                alt={p.nombre}
-              />
+            <img
+            src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
+            className="card-img-top"
+            style={{ height: '250px', objectFit: 'contain', padding: '1rem' }}
+            onError={e => { e.target.src = '/multimedia/no-image.png' }}
+            alt={p.nombre}
+          />
               <div className="card-body">
                 <div className="d-flex justify-content-end">
                   <i
