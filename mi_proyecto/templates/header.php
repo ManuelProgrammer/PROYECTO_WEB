@@ -3,7 +3,6 @@ if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 require_once(__DIR__ . '/../config.php');
-
 // Validar sesión
 $isLoggedIn = isset($_SESSION['usuario']);
 $isAdmin = $isLoggedIn && $_SESSION['usuario']['rol'] === 'admin';
