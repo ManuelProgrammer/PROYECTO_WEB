@@ -5,7 +5,7 @@ function Destacados() {
   const [destacados, setDestacados] = useState([]);
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/productos_destacados.php')
+    fetch('/api/productos_destacados.php')
       .then(res => res.json())
       .then(data => setDestacados(data));
   }, []);
@@ -35,9 +35,9 @@ function Destacados() {
           <div className="col-md-4 mb-4" key={p.id}>
             <div className="card h-100 shadow-sm animate-hover">
               <img
-                src={`http://localhost/mi_proyecto/multimedia/${p.imagen || 'no-image.png'}`}
+                src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
                 className="card-img-top"
-                onError={e => e.target.src = '/mi_proyecto/multimedia/no-image.png'}
+                onError={e => e.target.src = '/multimedia/no-image.png'}
                 alt={p.nombre}
               />
               <div className="card-body">

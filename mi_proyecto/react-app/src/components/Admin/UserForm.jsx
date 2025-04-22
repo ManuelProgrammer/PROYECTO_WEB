@@ -15,7 +15,7 @@ export default function UserForm({ usuario, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch('/mi_proyecto/api/usuarios.php', {
+    fetch('/api/usuarios.php', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form)

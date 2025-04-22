@@ -11,7 +11,7 @@ export default function UserList() {
   }, [])
 
   const cargarUsuarios = () => {
-    fetch('/mi_proyecto/api/usuarios.php')
+    fetch('/api/usuarios.php')
       .then(res => res.json())
       .then(data => {
         console.log("Usuarios recibidos:", data)
@@ -22,7 +22,7 @@ export default function UserList() {
 
   const eliminarUsuario = (id) => {
     if (confirm('¿Estás seguro de eliminar este usuario?')) {
-      fetch(`/mi_proyecto/api/usuarios.php?id=${id}`, {
+      fetch(`/api/usuarios.php?id=${id}`, {
         method: 'DELETE'
       })
         .then(res => res.json())
@@ -44,7 +44,7 @@ export default function UserList() {
       : "¿Deseas activar nuevamente este usuario?"
 
     if (confirm(confirmMsg)) {
-      fetch('/mi_proyecto/api/usuarios.php', {
+      fetch('/api/usuarios.php', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...user, activo: nuevoEstado })

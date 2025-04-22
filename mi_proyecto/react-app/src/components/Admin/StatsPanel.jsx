@@ -9,7 +9,7 @@ export default function StatsPanel() {
   })
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/stats_admin.php')
+    fetch('/api/stats_admin.php')
       .then(res => res.json())
       .then(data => setStats(data))
       .catch(err => console.error("❌ Error al obtener estadísticas:", err))

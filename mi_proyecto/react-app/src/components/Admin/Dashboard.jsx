@@ -9,7 +9,7 @@ export default function Dashboard() {
   })
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/dashboard.php', {
+    fetch('/api/dashboard.php', {
       credentials: 'include' // ✅ Importante para que se mande la cookie de sesión
     })
       .then(res => {

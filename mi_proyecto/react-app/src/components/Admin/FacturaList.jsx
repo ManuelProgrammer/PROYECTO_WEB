@@ -4,7 +4,7 @@ export default function FacturaList() {
   const [facturas, setFacturas] = useState([])
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/facturas_admin.php')
+    fetch('/api/facturas_admin.php')
       .then(res => res.json())
       .then(data => setFacturas(data))
       .catch(err => console.error("❌ Error al cargar facturas:", err))

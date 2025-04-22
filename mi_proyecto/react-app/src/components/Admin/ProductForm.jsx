@@ -92,7 +92,7 @@ export default function ProductForm({ producto, onClose, onSave }) {
     data.append('destacado', formData.destacado)
     if (formData.imagen) data.append('imagen', formData.imagen)
 
-    fetch('/mi_proyecto/api/productos_admin.php', {
+    fetch('/api/productos_admin.php', {
       method: modoEdicion ? 'POST' : 'PUT',
       body: data
     })

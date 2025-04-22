@@ -21,7 +21,7 @@ function Wishlist() {
   }
 
   useEffect(() => {
-    fetch('/mi_proyecto/api/wishlist.php?productos=1', { credentials: 'include' })
+    fetch('/api/wishlist.php?productos=1', { credentials: 'include' })
       .then(res => res.ok ? res.json() : [])
       .then(data => {
         setProductos(data)
@@ -37,7 +37,7 @@ function Wishlist() {
   const toggleFavorito = (id) => {
     const metodo = favoritos.includes(id) ? 'DELETE' : 'POST'
 
-    fetch('/mi_proyecto/api/wishlist.php', {
+    fetch('/api/wishlist.php', {
       method: metodo,
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -109,9 +109,9 @@ function Wishlist() {
           <div className="col-md-4 mb-4" key={p.id}>
             <div className="card h-100 shadow-sm">
               <img
-                src={`http://localhost/mi_proyecto/multimedia/${p.imagen || 'no-image.png'}`}
+                src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
                 className="card-img-top"
-                onError={e => { e.target.src = '/mi_proyecto/multimedia/no-image.png' }}
+                onError={e => { e.target.src = '/multimedia/no-image.png' }}
                 alt={p.nombre}
               />
               <div className="card-body">

@@ -10,7 +10,7 @@ export default function ProductList() {
   }, [])
 
   const cargarProductos = () => {
-    fetch('/mi_proyecto/api/productos_admin.php')
+    fetch('/api/productos_admin.php')
       .then(res => res.json())
       .then(data => setProductos(data))
       .catch(err => console.error("Error al cargar productos:", err))
@@ -18,7 +18,7 @@ export default function ProductList() {
 
   const eliminarProducto = (id) => {
     if (confirm('¿Estás seguro de eliminar este producto?')) {
-      fetch('/mi_proyecto/api/productos_admin.php', {
+      fetch('/api/productos_admin.php', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

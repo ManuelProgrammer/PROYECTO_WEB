@@ -53,12 +53,12 @@ function Carrito() {
                   <div className="row g-0">
                     <div className="col-md-4">
                       <img
-                        src={`http://localhost/mi_proyecto/multimedia/${p.imagen || 'no-image.png'}`}
+                        src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
                         alt={p.nombre}
                         className="img-fluid rounded-start"
                         onError={e => {
                           e.target.onerror = null
-                          e.target.src = '/mi_proyecto/multimedia/no-image.png'
+                          e.target.src = '/multimedia/no-image.png'
                         }}
                       />
                     </div>
