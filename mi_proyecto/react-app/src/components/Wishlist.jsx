@@ -21,18 +21,21 @@ function Wishlist() {
   }
 
   useEffect(() => {
-    fetch('/api/wishlist.php', { credentials: 'include' })
+    fetch('/api/wishlist.php?productos=1', { credentials: 'include' })
       .then(res => {
         if (!res.ok) throw new Error('No autenticado')
         return res.json()
       })
       .then(data => {
-        setFavoritos(data)
+        setProductos(data)
+        setLoading(false)
       })
       .catch(() => {
-        setFavoritos([]) // En caso de no estar logueado, deja el array vacío
+        setError('No se pudieron cargar los productos favoritos.')
+        setLoading(false)
       })
   }, [])
+  
 
   const toggleFavorito = (id) => {
     const metodo = favoritos.includes(id) ? 'DELETE' : 'POST'
