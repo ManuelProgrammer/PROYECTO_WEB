@@ -21,16 +21,16 @@ function Wishlist() {
   }
 
   useEffect(() => {
-    fetch('/api/wishlist.php?productos=1', { credentials: 'include' })
-      .then(res => res.ok ? res.json() : [])
+    fetch('/api/wishlist.php', { credentials: 'include' })
+      .then(res => {
+        if (!res.ok) throw new Error('No autenticado')
+        return res.json()
+      })
       .then(data => {
-        setProductos(data)
-        setFavoritos(data.map(p => p.id))
-        setLoading(false)
+        setFavoritos(data)
       })
       .catch(() => {
-        setError('No se pudo cargar la lista de deseos.')
-        setLoading(false)
+        setFavoritos([]) // En caso de no estar logueado, deja el array vacío
       })
   }, [])
 
