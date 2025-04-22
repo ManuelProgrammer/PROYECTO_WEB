@@ -34,13 +34,22 @@ $isAdmin = $isLoggedIn && $_SESSION['usuario']['rol'] === 'admin';
       </a>
       <h4 class="ms-2 header-text">Vivero el Paraíso</h4>
     </div>
-    <div class="form-container d-flex align-items-center">
-      <form class="d-flex align-items-center" action="<?= BASE_URL ?>/views/productos.php" method="get">
-        <input name="busqueda" class="form-control me-1 search-input" type="search" placeholder="Busca productos y mucho más..." required>
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
+    <div class="form-container w-100">
+  <form action="<?= BASE_URL ?>/views/productos.php" method="get">
+    <div class="d-flex flex-column flex-sm-row align-items-stretch gap-2 w-100">
+      <input
+        name="busqueda"
+        class="form-control"
+        type="search"
+        placeholder="Busca productos y mucho más..."
+        required
+      >
+      <button class="btn btn-outline-success" type="submit">
+        Buscar
+      </button>
     </div>
-
+  </form>
+</div>
     <!-- Sesión -->
     <?php if (!$isLoggedIn): ?>
       <button class="btn btn-outline-success" onclick="window.location.href='<?= BASE_URL ?>/views/auth.php?mode=login'">
