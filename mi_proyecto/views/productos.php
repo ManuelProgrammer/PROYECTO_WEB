@@ -4,7 +4,7 @@ require_once '../templates/banner.php';
 
 // Detectamos los archivos del build de React
 $assets_path = __DIR__ . '/../public/react/assets';
-$assets_url = '/mi_proyecto/public/react/assets'; // Ruta pública
+$assets_url = '/public/react/assets'; // Ruta pública
 
 $js_file = '';
 $css_file = '';
