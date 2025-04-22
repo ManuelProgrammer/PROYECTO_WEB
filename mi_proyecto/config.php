@@ -5,4 +5,3 @@ $basePath = "/mi_proyecto"; // Asegúrate que coincide con tu estructura real
 
 define('BASE_URL', $protocol . $host . $basePath);
 ?>
-
