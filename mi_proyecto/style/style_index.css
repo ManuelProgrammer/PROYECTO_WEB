@@ -10,7 +10,9 @@
   justify-content: center;
 }
 
-
+.banner-ajustado {
+  margin-top: 70px; /* Ajusta según la altura de tu navbar */
+}
 
 .search-input {
   width: 100%; /* Ajusta el tamaño del buscador para que sea responsive */
