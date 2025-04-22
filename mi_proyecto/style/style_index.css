@@ -17,20 +17,12 @@ Elimina márgenes del body */
   margin-bottom: 0 !important;
 }
 
-
-
 /* Hace que el banner no se recorte ni tenga espacios blancos */
 .carousel img {
   width: 100%;
   height: auto;
   object-fit: cover;
   display: block;
-}
-
-/* Elimina padding extra de los contenedores que rodean el carrusel */
-.container-fluid{
-  padding: 0 !important;
-  margin: 0 !important;
 }
 
 /* Elimina margen top del carrusel si hay */
