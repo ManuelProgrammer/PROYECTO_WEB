@@ -28,8 +28,7 @@ Elimina márgenes del body */
 }
 
 /* Elimina padding extra de los contenedores que rodean el carrusel */
-.container-fluid,
-.container {
+.container-fluid{
   padding: 0 !important;
   margin: 0 !important;
 }
