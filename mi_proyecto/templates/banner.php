@@ -31,7 +31,7 @@ if (empty($imagenes)) {
 ?>
 
 <!-- Banner limpio y sin márgenes -->
-<div class="w-100 p-0 m-0">
+<div class="w-100 p-0 m-0 banner-ajustado">
   <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <?php foreach ($imagenes as $index => $rutaImagen): ?>
