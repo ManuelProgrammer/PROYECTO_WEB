@@ -82,9 +82,9 @@ $isAdmin = $isLoggedIn && $_SESSION['usuario']['rol'] === 'admin';
           <li class="nav-item mx-3">
             <a class="nav-link fs-5" href="<?= BASE_URL ?>/nosotros.php">Acerca de Nosotros</a>
           </li>
-          <li class="nav-item mx-3">
+          <!--<li class="nav-item mx-3">
             <a class="nav-link fs-5" href="#">Blog</a>
-          </li>
+          </li>-->
           <li class="nav-item mx-3">
             <a class="nav-link fs-5" href="<?= BASE_URL ?>/soport.php">Soporte</a>
           </li>
