@@ -49,55 +49,45 @@ function App() {
 
   const toggleFavorito = (id) => {
     const metodo = favoritos.includes(id) ? 'DELETE' : 'POST'
-
     fetch('/api/wishlist.php', {
       method: metodo,
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body: JSON.stringify({ producto_id: id })
+    }).then(() => {
+      setFavoritos(prev =>
+        metodo === 'POST' ? [...prev, id] : prev.filter(pid => pid !== id)
+      )
     })
-      .then(() => {
-        setFavoritos(prev =>
-          metodo === 'POST'
-            ? [...prev, id]
-            : prev.filter(pid => pid !== id)
-        )
-      })
   }
 
   const agregarAlCarrito = (producto_id) => {
     const producto = productos.find(p => p.id === producto_id)
     if (!producto) return
-  
+
     const carritoActual = JSON.parse(localStorage.getItem('carrito')) || []
-  
+
     const existe = carritoActual.find(p => p.id === producto.id)
-    let actualizado
-  
-    if (existe) {
-      actualizado = carritoActual.map(p =>
-        p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
-      )
-    } else {
-      actualizado = [...carritoActual, { ...producto, cantidad: 1 }]
-    }
-  
+    const actualizado = existe
+      ? carritoActual.map(p =>
+          p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p)
+      : [...carritoActual, { ...producto, cantidad: 1 }]
+
     localStorage.setItem('carrito', JSON.stringify(actualizado))
     alert('✅ Producto agregado al carrito')
   }
-  
+
   const productosFiltrados = productos.filter(p => {
     const coincideBusqueda = busqueda
       ? (p.nombre?.toLowerCase().includes(busqueda) || p.descripcion?.toLowerCase().includes(busqueda))
-      : true;
-    const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true;
-    const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true;
-    return coincideBusqueda && coincideGrupo && coincideSubgrupo;
-  });
-  
+      : true
+    const coincideGrupo = filtroGrupo ? p.grupo === filtroGrupo : true
+    const coincideSubgrupo = filtroSubgrupo ? p.subGrupo === filtroSubgrupo : true
+    return coincideBusqueda && coincideGrupo && coincideSubgrupo
+  })
 
   return (
-    <div className="col-12 col-sm-6 col-md-4 mb-4" key={p.id}>
+    <div className="container py-4">
       <h2 className="mb-5 text-center" style={{ color: '#004d00' }}>
         <i className="bx bxs-leaf me-2"></i> Nuestros Productos
       </h2>
@@ -134,13 +124,13 @@ function App() {
         {productosFiltrados.map(p => (
           <div className="col-md-4 mb-4" key={p.id}>
             <div className="card h-100 shadow-sm animate-hover">
-            <img
-            src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
-            className="card-img-top"
-            style={{ height: '250px', objectFit: 'contain', padding: '1rem' }}
-            onError={e => { e.target.src = '/multimedia/no-image.png' }}
-            alt={p.nombre}
-          />
+              <img
+                src={`https://proyecto-web-jr8l.onrender.com/multimedia/${p.imagen || 'no-image.png'}`}
+                className="card-img-top"
+                style={{ height: '250px', objectFit: 'contain', padding: '1rem' }}
+                onError={e => { e.target.src = '/multimedia/no-image.png' }}
+                alt={p.nombre}
+              />
               <div className="card-body">
                 <div className="d-flex justify-content-end">
                   <i
@@ -153,7 +143,10 @@ function App() {
                 <h5 className="card-title text-start">{p.nombre}</h5>
                 <p className="card-text text-start">{p.descripcion}</p>
                 <p className="card-text fw-bold text-success">
-                {new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(p.precio)}
+                  {new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP'
+                  }).format(p.precio)}
                 </p>
                 <button
                   className="btn btn-outline-success w-100 mt-3"
@@ -171,4 +164,3 @@ function App() {
 }
 
 export default App
-
