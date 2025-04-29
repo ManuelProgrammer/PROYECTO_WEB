@@ -22,7 +22,7 @@ require_once 'templates/header.php'; // Asegúrate de que header.php tenga sessi
     <br>
     <div id="carouselEvents" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item animate-hover active">
           <img src="<?= BASE_URL ?>/multimedia/evento1.webp" class="d-block w-100" alt="Evento 1">
         </div>
         <div class="carousel-item animate-hover">
